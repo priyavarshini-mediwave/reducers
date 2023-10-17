@@ -1,8 +1,8 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 import TodoList from "./components/TodoList";
 import TodoAddForm from "./components/TodoAddForm";
-import TodoEdit from "./components/TodoEdit";
+import "./App.css";
 
 /*
 {
@@ -12,7 +12,21 @@ import TodoEdit from "./components/TodoEdit";
 }
 */
 function App() {
-  const [todos, dispatch] = useReducer(todoReducer, []);
+  const initialTodo = getfromLocal();
+  const [todos, dispatch] = useReducer(todoReducer, initialTodo);
+  useEffect(() => {
+    savetoLocal(todos);
+  }, [todos]);
+  function getfromLocal() {
+    const getData = localStorage.getItem("todos");
+    if (getData) {
+      return JSON.parse(getData);
+    }
+    return [];
+  }
+  function savetoLocal(todos) {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
 
   function todoReducer(todos, action) {
     switch (action.type) {
@@ -57,6 +71,23 @@ function App() {
 
         return newTodos;
       }
+      case "TODO_EDITING": {
+        const editedTodo = todos.map((t) => {
+          if (t.id === action.value.id) {
+            return {
+              ...t,
+              text: action.value.editedText,
+              isDone: false,
+              isEdit: false,
+            };
+          }
+          return t;
+        });
+        return editedTodo;
+      }
+      case "TODO_DRAG": {
+        return action.value;
+      }
       default: {
         throw Error("Unknown action: " + action.type);
       }
@@ -94,6 +125,18 @@ function App() {
       value: id,
     });
   }
+  function handleEditing(id, editedText) {
+    dispatch({
+      type: "TODO_EDITING",
+      value: { id, editedText },
+    });
+  }
+  function dragUpdate(newTodos) {
+    dispatch({
+      type: "TODO_DRAG",
+      value: newTodos,
+    });
+  }
   return (
     <>
       <h1>My todo</h1>
@@ -104,6 +147,8 @@ function App() {
         handleDelete={handleDelete}
         handleDone={handleDone}
         handleUpdate={handleUpdate}
+        handleEditing={handleEditing}
+        dragUpdate={dragUpdate}
       />
     </>
   );

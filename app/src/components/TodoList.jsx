@@ -1,6 +1,25 @@
 import TodoEdit from "./TodoEdit";
+import { useRef } from "react";
+const TodoList = ({
+  todos,
+  handleDelete,
+  handleDone,
+  handleUpdate,
+  handleEditing,
+  dragUpdate,
+}) => {
+  const dragItem = useRef(null);
+  const dragOverItem = useRef(null);
 
-const TodoList = ({ todos, handleDelete, handleDone, handleUpdate }) => {
+  const handleSort = () => {
+    let newTodos = [...todos];
+
+    const dragItemContent = newTodos.splice(dragItem.current, 1)[0];
+
+    newTodos.splice(dragOverItem.current, 0, dragItemContent);
+    dragUpdate(newTodos);
+  };
+
   function handleCheck(e, id) {
     // console.log(e.target.checked);
     // console.log(id);
@@ -13,14 +32,23 @@ const TodoList = ({ todos, handleDelete, handleDone, handleUpdate }) => {
   return (
     <div>
       <h1>My todos</h1>
-      {todos.map((t) => (
+      {todos.map((t, index) => (
         <div key={t.id}>
           {t.isEdit ? (
-            <>
-              <TodoEdit />
-            </>
+            <TodoEdit
+              todo={t}
+              onSave={(editedText) => {
+                handleEditing(t.id, editedText);
+              }}
+            />
           ) : (
-            <>
+            <div
+              className="todolist"
+              draggable
+              onDragStart={(e) => (dragItem.current = index)}
+              onDragEnter={(e) => (dragOverItem.current = index)}
+              onDragEnd={handleSort}
+            >
               <input
                 type="checkbox"
                 name=""
@@ -28,10 +56,12 @@ const TodoList = ({ todos, handleDelete, handleDone, handleUpdate }) => {
                 checked={t.isDone}
                 onChange={(e) => handleCheck(e, t.id)}
               />
-              {t.text}
+              <span style={t.isDone ? { textDecoration: "line-through" } : {}}>
+                {t.text}
+              </span>
               <button onClick={() => handleDelete(t.id)}>Delete</button>
               <button onClick={() => handleUpdate(t.id)}>Update</button>
-            </>
+            </div>
           )}
         </div>
       ))}
@@ -40,12 +70,3 @@ const TodoList = ({ todos, handleDelete, handleDone, handleUpdate }) => {
 };
 
 export default TodoList;
-{
-  /* {todos.map((t) => (
-          <div key={t.id}>
-            <input type="text" name="" id="" value={t.text} />
-  
-            <button onClick={() => handleDelete(t.id)}>Update</button>
-          </div>
-        ))} */
-}

@@ -1,8 +1,29 @@
-function TodoEdit() {
+import { useState } from "react";
+
+function TodoEdit({ todo, onSave }) {
+  const [editText, seteditText] = useState(todo.text);
+  function handleEditSubmit(e) {
+    e.preventDefault();
+    onSave(editText);
+  }
+
   return (
     <>
-      <input type="text" placeholder=""></input>
-      <button type="submit">SaveChanges</button>
+      <form onSubmit={handleEditSubmit}>
+        <label>
+          <input
+            type="text"
+            placeholder={todo.text}
+            onChange={(e) => {
+              seteditText(e.target.value);
+            }}
+            minLength="5"
+            maxLength="30"
+            required
+          />
+        </label>
+        <button type="submit">Save your Changes</button>
+      </form>
     </>
   );
 }

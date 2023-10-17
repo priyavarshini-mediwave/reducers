@@ -10,7 +10,7 @@ const TodoAddForm = ({ handleAdd }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="AddForm" onSubmit={handleSubmit}>
       <label>
         <input
           type="text"
@@ -19,7 +19,7 @@ const TodoAddForm = ({ handleAdd }) => {
           }}
           value={text}
           minLength="5"
-          maxLength="10"
+          maxLength="30"
           required
         />
       </label>
