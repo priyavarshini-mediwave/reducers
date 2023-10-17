@@ -1,5 +1,6 @@
 import TodoEdit from "./TodoEdit";
 import { useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const TodoList = ({
   todos,
   handleDelete,
@@ -12,12 +13,13 @@ const TodoList = ({
   const dragOverItem = useRef(null);
 
   const handleSort = () => {
-    let newTodos = [...todos];
+    // let newTodos = [...todos];
 
-    const dragItemContent = newTodos.splice(dragItem.current, 1)[0];
+    // const dragItemContent = newTodos.splice(dragItem.current, 1)[0];
 
-    newTodos.splice(dragOverItem.current, 0, dragItemContent);
-    dragUpdate(newTodos);
+    // newTodos.splice(dragOverItem.current, 0, dragItemContent);
+    // dragUpdate(newTodos);
+    dragUpdate(dragItem.current, dragOverItem.current);
   };
 
   function handleCheck(e, id) {
@@ -50,6 +52,7 @@ const TodoList = ({
               onDragEnd={handleSort}
             >
               <label>
+                {/* <strong>...</strong> */}
                 <input
                   type="checkbox"
                   name=""

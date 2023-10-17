@@ -86,7 +86,14 @@ function App() {
         return editedTodo;
       }
       case "TODO_DRAG": {
-        return action.value;
+        let newTodos = [...todos];
+        const dragItemContent = newTodos.splice(
+          action.value.dragItemcurrent,
+          1
+        )[0];
+        newTodos.splice(action.value.dragOverItemcurrent, 0, dragItemContent);
+
+        return newTodos;
       }
       default: {
         throw Error("Unknown action: " + action.type);
@@ -131,10 +138,10 @@ function App() {
       value: { id, editedText },
     });
   }
-  function dragUpdate(newTodos) {
+  function dragUpdate(dragItemCurrent, dragOverItemcurrent) {
     dispatch({
       type: "TODO_DRAG",
-      value: newTodos,
+      value: { dragItemCurrent, dragOverItemcurrent },
     });
   }
   return (
