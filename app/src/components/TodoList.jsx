@@ -30,10 +30,10 @@ const TodoList = ({
     handleDone(id, type);
   }
   return (
-    <div>
+    <div className="output-wrap">
       <h1>My todos</h1>
       {todos.map((t, index) => (
-        <div key={t.id}>
+        <div key={t.id} className="output">
           {t.isEdit ? (
             <TodoEdit
               todo={t}
@@ -49,16 +49,20 @@ const TodoList = ({
               onDragEnter={(e) => (dragOverItem.current = index)}
               onDragEnd={handleSort}
             >
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                checked={t.isDone}
-                onChange={(e) => handleCheck(e, t.id)}
-              />
-              <span style={t.isDone ? { textDecoration: "line-through" } : {}}>
-                {t.text}
-              </span>
+              <label>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  checked={t.isDone}
+                  onChange={(e) => handleCheck(e, t.id)}
+                />
+                <span
+                  style={t.isDone ? { textDecoration: "line-through" } : {}}
+                >
+                  <strong>{t.text}</strong>
+                </span>
+              </label>
               <button onClick={() => handleDelete(t.id)}>Delete</button>
               <button onClick={() => handleUpdate(t.id)}>Update</button>
             </div>

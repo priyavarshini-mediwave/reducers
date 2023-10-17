@@ -9,7 +9,7 @@ function TodoEdit({ todo, onSave }) {
 
   return (
     <>
-      <form onSubmit={handleEditSubmit}>
+      <form className="Editform" onSubmit={handleEditSubmit}>
         <label>
           <input
             type="text"

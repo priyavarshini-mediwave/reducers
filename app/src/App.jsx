@@ -138,7 +138,7 @@ function App() {
     });
   }
   return (
-    <>
+    <div className="app-wrap">
       <h1>My todo</h1>
 
       <TodoAddForm handleAdd={handleAdd} />
@@ -150,7 +150,7 @@ function App() {
         handleEditing={handleEditing}
         dragUpdate={dragUpdate}
       />
-    </>
+    </div>
   );
 }
 

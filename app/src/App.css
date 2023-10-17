@@ -1,0 +1,61 @@
+.app-wrap {
+  background-image: linear-gradient(to top left, white, rgb(207, 227, 227));
+  margin: 50px auto;
+  max-width: 500px;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+h1 {
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+.AddForm {
+  margin: 20px auto;
+  max-width: 500px;
+}
+.AddForm button {
+  margin-left: 10px;
+  border-radius: 5px;
+}
+.AddForm button:hover {
+  background-color: beige;
+  color: blueviolet;
+}
+.AddForm input {
+  border: 2px groove;
+}
+.output-wrap {
+  margin: 50px auto;
+  max-width: 500px;
+  margin-bottom: 50px;
+  padding: 20px;
+  background-color: rgb(203, 232, 232);
+  border-radius: 15px;
+  text-align: center;
+}
+.output-wrap h1 {
+  text-align: center;
+}
+.todolist {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.todolist label {
+  text-align: left;
+}
+.todolist button {
+  margin: 5px 10px;
+  border: 2px ridge blanchedalmond;
+  border-radius: 6px;
+}
+.todolist button:hover {
+  transform: scale(1.2, 1.2);
+  transition: transform 0.5s;
+}
+
+.Editform button {
+  margin-left: 8px;
+  border-radius: 3px;
+}

@@ -17,6 +17,7 @@ const TodoAddForm = ({ handleAdd }) => {
           onChange={(e) => {
             setText(e.target.value);
           }}
+          placeholder="Enter a task todo"
           value={text}
           minLength="5"
           maxLength="30"
