@@ -87,13 +87,18 @@ function App() {
       }
       case "TODO_DRAG": {
         let newTodos = [...todos];
-        const dragItemContent = newTodos.splice(
-          action.value.dragItemcurrent,
-          1
-        )[0];
-        newTodos.splice(action.value.dragOverItemcurrent, 0, dragItemContent);
+        // const dragItemContent = newTodos.splice(
+        //   action.value.dragItemcurrent,
+        //   1
+        // )[0];
+        // newTodos.splice(action.value.dragOverItemcurrent, 0, dragItemContent);
+        const temp = newTodos[action.value.dragOverItemcurrent];
+        newTodos[action.value.dragOverItemcurrent] =
+          newTodos[action.value.dragItemcurrent];
+        newTodos[action.value.dragItemcurrent] = temp;
 
         return newTodos;
+        //return action.value;
       }
       default: {
         throw Error("Unknown action: " + action.type);
@@ -138,10 +143,17 @@ function App() {
       value: { id, editedText },
     });
   }
-  function dragUpdate(dragItemCurrent, dragOverItemcurrent) {
+  // function dragUpdate(newTodos) {
+  //   dispatch({
+  //     type: "TODO_DRAG",
+  //    //value: newTodos,
+
+  //   });
+  // }
+  function dragUpdate(dragItemcurrent, dragOverItemcurrent) {
     dispatch({
       type: "TODO_DRAG",
-      value: { dragItemCurrent, dragOverItemcurrent },
+      value: { dragItemcurrent, dragOverItemcurrent },
     });
   }
   return (

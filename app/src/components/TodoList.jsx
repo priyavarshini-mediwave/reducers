@@ -13,7 +13,7 @@ const TodoList = ({
   const dragOverItem = useRef(null);
 
   const handleSort = () => {
-    // let newTodos = [...todos];
+    let newTodos = [...todos];
 
     // const dragItemContent = newTodos.splice(dragItem.current, 1)[0];
 
